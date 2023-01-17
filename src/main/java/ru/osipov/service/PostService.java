@@ -1,13 +1,11 @@
 package ru.osipov.service;
 
-import org.springframework.stereotype.Service;
 import ru.osipov.exception.NotFoundException;
 import ru.osipov.model.Post;
 import ru.osipov.repository.PostRepository;
 
 import java.util.List;
 
-@Service
 public class PostService {
     private final PostRepository repository;
 
