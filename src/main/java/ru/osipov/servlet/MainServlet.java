@@ -7,8 +7,12 @@ import ru.osipov.service.PostService;
 import javax.servlet.http.*;
 
 public class MainServlet extends HttpServlet {
-
     private PostController controller;
+    private static final String PATH = "/api/posts";
+    private static final String PATH_ID = PATH+"/\\d+";
+    private static final String GET = "GET";
+    private static final String POST = "POST";
+    private static final String DELETE = "DELETE";
 
     @Override
     public void init() {
@@ -24,21 +28,21 @@ public class MainServlet extends HttpServlet {
             final var path = req.getRequestURI();
             final var method = req.getMethod();
             // primitive routing
-            if (method.equals("GET") && path.equals("/api/posts")) {
+            if (method.equals(GET) && path.equals(PATH)) {
                 controller.all(resp);
                 return;
             }
-            if (method.equals("GET") && path.matches("/api/posts/\\d+")) { // например /api/posts/3
+            if (method.equals(GET) && path.matches(PATH_ID)) { // например /api/posts/3
                 // easy way
                 final var id = Long.parseLong(path.substring(1 + path.lastIndexOf("/")));
                 controller.getById(id, resp);
                 return;
             }
-            if (method.equals("POST") && path.equals("/api/posts")) {
+            if (method.equals(POST) && path.equals(PATH)) {
                 controller.save(req.getReader(), resp);
                 return;
             }
-            if (method.equals("DELETE") && path.matches("/api/posts/\\d+")) {
+            if (method.equals(DELETE) && path.matches(PATH_ID)) {
                 // easy way
                 final var id = Long.parseLong(path.substring(1 + path.lastIndexOf("/")));
                 controller.removeById(id, resp);
