@@ -17,9 +17,6 @@ public class MainServlet extends HttpServlet {
     public void init() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("ru.osipov");
         controller = context.getBean(PostController.class);
-//        final var repository = new PostRepository();
-//        final var service = new PostService(repository);
-//        controller = new PostController(service);
     }
 
     @Override
