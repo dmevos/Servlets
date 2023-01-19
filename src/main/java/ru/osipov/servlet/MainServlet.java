@@ -1,8 +1,8 @@
 package ru.osipov.servlet;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.osipov.config.Config;
 import ru.osipov.controller.PostController;
-import ru.osipov.repository.PostRepository;
-import ru.osipov.service.PostService;
 
 import javax.servlet.http.*;
 
@@ -16,9 +16,8 @@ public class MainServlet extends HttpServlet {
 
     @Override
     public void init() {
-        final var repository = new PostRepository();
-        final var service = new PostService(repository);
-        controller = new PostController(service);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
+        controller = context.getBean(PostController.class);
     }
 
     @Override
