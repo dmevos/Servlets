@@ -1,6 +1,7 @@
 package ru.osipov.controller;
 
 import com.google.gson.Gson;
+import org.springframework.stereotype.Controller;
 import ru.osipov.model.Post;
 import ru.osipov.service.PostService;
 
@@ -8,11 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Reader;
 
+@Controller
 public class PostController {
     public static final String APPLICATION_JSON = "application/json";
     private final PostService service;
 
-    public PostController(PostService service) {
+        public PostController(PostService service) {
         this.service = service;
     }
 
