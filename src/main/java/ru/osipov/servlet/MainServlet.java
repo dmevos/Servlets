@@ -9,7 +9,7 @@ import javax.servlet.http.*;
 public class MainServlet extends HttpServlet {
     private PostController controller;
     private static final String PATH = "/api/posts";
-    private static final String PATH_ID = PATH+"/\\d+";
+    private static final String PATH_ID = PATH + "/\\d+";
     private static final String GET = "GET";
     private static final String POST = "POST";
     private static final String DELETE = "DELETE";
@@ -33,8 +33,7 @@ public class MainServlet extends HttpServlet {
             }
             if (method.equals(GET) && path.matches(PATH_ID)) { // например /api/posts/3
                 // easy way
-                final var id = Long.parseLong(path.substring(1 + path.lastIndexOf("/")));
-                controller.getById(id, resp);
+                controller.getById(id(path), resp);
                 return;
             }
             if (method.equals(POST) && path.equals(PATH)) {
@@ -43,8 +42,7 @@ public class MainServlet extends HttpServlet {
             }
             if (method.equals(DELETE) && path.matches(PATH_ID)) {
                 // easy way
-                final var id = Long.parseLong(path.substring(1 + path.lastIndexOf("/")));
-                controller.removeById(id, resp);
+                controller.removeById(id(path), resp);
                 return;
             }
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -52,5 +50,9 @@ public class MainServlet extends HttpServlet {
             e.printStackTrace();
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    private long id(String path) {
+        return Long.parseLong(path.substring(path.lastIndexOf("/") + 1));
     }
 }
